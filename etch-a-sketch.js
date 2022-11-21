@@ -3,17 +3,19 @@ const container = document.querySelector('#container');
 
 let slider = document.getElementById('slider')
 let output = document.getElementById("demo");
+let test = document.getElementsByClassName("squares");
 output.innerHTML = slider.value;
 
 let num = slider.value;
 
 slider.onchange = function() {
     output.innerHTML = this.value;
+    num = this.value;
+    container.style.setProperty("--n", num);
+    removeSquares();
+    createDivs();
+    changeSquares();
 }
-
-console.log(num);
-
-container.style.setProperty("--n", num);
 
 function createDivs(){
     for(let i = 0; i < num * num; i++) {
@@ -21,12 +23,13 @@ function createDivs(){
         innerDivs.className = 'squares';
         innerDivs.textContent = '';
         container.appendChild(innerDivs)[i];
+        console.log(num);
     }
 }
 
-createDivs();
-
-let test = document.getElementsByClassName("squares");
+function removeSquares(){
+    document.querySelectorAll('.squares').forEach(e => e.remove());
+}
 
 function changeSquares() {
     for (let i = 0; i < test.length; i++) {
@@ -35,8 +38,6 @@ function changeSquares() {
         })
     }
 }
-
-changeSquares();
 
 function clearButton(){
     for (let i = 0; i < test.length; i++) {

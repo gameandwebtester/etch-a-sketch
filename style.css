@@ -3,18 +3,22 @@ body {
     justify-content: center;
 }
 
+.buttons {
+    position: absolute;
+    left: 10%;
+}
+
 #container {
     display: grid;
-    grid-template-columns: auto auto auto auto;
-    background-color: white;
+    grid-template-columns: repeat(var(--n, 16), 1fr);
     padding: 10px;
-    height: 960px;
-    width: 960px;
+    height: 720px;
+    width: 720px;
 }
 
 div{
-    background-color: aqua;
-    border: 1px solid black;
-    height: auto;
-    width: auto;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border: 1px solid rgb(0, 0, 0);
 }
+

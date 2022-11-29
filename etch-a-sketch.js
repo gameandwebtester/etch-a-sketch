@@ -3,12 +3,20 @@ const container = document.querySelector('#container');
 
 let slider = document.getElementById('slider')
 let output = document.getElementById("demo");
-let test = document.getElementsByClassName("squares");
+
+
+const roundValue = Math.round, rndmValue = Math.random, maxNum = 255;
+const makeBlack = event => event.target.style.backgroundColor = 'black';
+const makeRandomColor = event => event.target.style.backgroundColor = 'rgba(' + roundValue(rndmValue()*maxNum) + ',' + roundValue(rndmValue()*maxNum) + ',' + roundValue(rndmValue()*maxNum) + ')';
+
+let squares = document.getElementsByClassName("squares");
+
+let isActive = false;
+
 output.innerHTML = slider.value;
 
-let isEnabled = false;
-
 let num = slider.value;
+
 
 slider.onchange = function() {
     output.innerHTML = this.value;
@@ -37,39 +45,70 @@ function removeSquares(){
     document.querySelectorAll('.squares').forEach(e => e.remove());
 }
 
-function changeSquares() {
-    if(isEnabled == true){
-        for (let i = 0; i < test.length; i++) {
-            test[i].addEventListener('mouseover', function onClick() {
-                test[i].style.backgroundColor = 'black'
-            });
-        }
+//document.getElementById("blackmode").onclick = function() {enable()};
+
+function activate(){
+    isActive = true;
+
+    //blackSquares();
+}
+
+console.log(isActive);
+
+function blackSquares() {
+
+    if(isActive === true){
+        console.log(isActive + ' sdsd');
+        for (let i = 0; i < squares.length; i++) {  
+            squares[i].addEventListener('mousedown', makeBlack);
+            squares[i].addEventListener('mouseover' , event => {
+                if(event.buttons == 1)makeBlack(event);
+        } );
     }
 }
+}
+
+// .................................experiment start
+
+const boxes = [...document.getElementsByClassName("squares")];
+
+const makeBlack2 = event => event.target.style.backgroundColor = "black";
+
+function equip(box) {
+    if(isActive){
+        
+    }
+        box.addEventListener("mousedown", makeBlack2);
+        box.addEventListener("mouseover", event => {
+            if (event.buttons === 1 && isActive === true) makeBlack2(event);
+  });
+}
+boxes.forEach(equip);
+
+//................................................end
+
+
+ 
 
 function randomColor(){
-
-    const roundValue = Math.round, rndmValue = Math.random, maxNum = 255;
-
-    for (let i = 0; i < test.length; i++) {
-        test[i].addEventListener('mouseover', function onClick() {
-            test[i].style.backgroundColor = 'rgba(' + roundValue(rndmValue()*maxNum) + ',' + roundValue(rndmValue()*maxNum) + ',' + roundValue(rndmValue()*maxNum) + ')';
-        });
+    for (let i = 0; i < squares.length; i++) {
+        squares[i].addEventListener('mousedown', makeRandomColor);
+        squares[i].addEventListener('mouseover', event => {
+            if(event.buttons == 1) makeRandomColor(event);
+        })
     }
 }
-
-function enableThings(){
-    isEnabled = true;
-    changeSquares();
-}
-
 
 function clearButton(){
-    isEnabled = false;
-    for (let i = 0; i < test.length; i++) {
-            test[i].style.backgroundColor = 'white';
+    isActive = false;
+    for (let i = 0; i < squares.length; i++) {
+        squares[i].style.backgroundColor = 'white';
     }
 }
+
+
+
+
 
 
 
